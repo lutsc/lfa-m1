@@ -52,12 +52,12 @@ public class Main {
         //instancia e usa objeto que captura código-fonte de páginas Web
         CapturaRecursosWeb crw = new CapturaRecursosWeb();
 
-        // crw.getListaRecursos().add("https://www.univali.br/");;
+        // crw.getListaRecursos().add("https://www.univali.br/");
         crw.getListaRecursos().add("https://arcus.readthedocs.io/en/stable/MacAddress.html");
-
+		crw.getListaRecursos().add("https://unstop.com/blog/what-is-a-mac-address");
+		crw.getListaRecursos().add("https://slts.osu.edu/articles/whats-a-mac-address-and-how-do-i-find-it/");
+		
         ArrayList<String> listaCodigos = crw.carregarRecursos();
-
-        String codigoHTML = listaCodigos.get(0);
 
         //mapa do alfabeto
         char[] alfabeto = {
@@ -80,7 +80,7 @@ public class Main {
 
 		// preenche todas as transições como -1 antes de fazer as conexões
 		for (int[] linha : matriz){
-            java.util.Arrays.fill(linha, -1);
+			java.util.Arrays.fill(linha, -1);
         }
 
 		// q0 -hex-> q1 -hex-> q2
@@ -122,41 +122,49 @@ public class Main {
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q15"), get_string_ref(estados, "q16"));
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q16"), get_string_ref(estados, "q17"));
 
-        int estado = get_string_ref(estados, estado_inicial);
-        int estado_anterior = -1;
-        ArrayList<String> palavras_reconhecidas = new ArrayList<String>();
+		// percorre cada link listado anteriormente
+		for (int i = 0; i<listaCodigos.size(); i++){
+	
+			String codigoHTML = listaCodigos.get(i);
+			System.out.println(crw.getListaRecursos().get(i));
 
-        String palavra = "";
+			int estado = get_string_ref(estados, estado_inicial);
+			int estado_anterior = -1;
+			ArrayList<String> palavras_reconhecidas = new ArrayList<String>();
 
-        //varre o código-fonte de um código
-        for (int i=0; i<codigoHTML.length(); i++){
-            estado_anterior = estado;
-            estado = proximo_estado(alfabeto, matriz, estado, codigoHTML.charAt(i));
-            //se o não há transição
-            if (estado == -1){
-                //pega estado inicial
-                estado = get_string_ref(estados, estado_inicial);
-                // se o estado anterior foi um estado final
-                if (get_string_ref(estados_finais, estados[estado_anterior]) != -1){
-                    //se a palavra não é vazia adiciona palavra reconhecida
-                    if (!palavra.equals("")){
-                        palavras_reconhecidas.add(palavra);
-                    }
-                    // se ao analisar este caracter não houve transição
-                    // teste-o novamente, considerando que o estado seja inicial
-                    i--;
-                }
-                //zera palavra
-                palavra = "";
-            }else{
-                //se houver transição válida, adiciona caracter a palavra
-                palavra += codigoHTML.charAt(i);
-            }
-        }
+			String palavra = "";
 
-        //foreach no Java para exibir todas as palavras reconhecidas
-        for (String p: palavras_reconhecidas){
-            System.out.println (p);
-        }
-    }
+			//varre o código-fonte de um código
+			for (int j=0; j<codigoHTML.length(); j++){
+				estado_anterior = estado;
+				estado = proximo_estado(alfabeto, matriz, estado, codigoHTML.charAt(j));
+				//se o não há transição
+				if (estado == -1){
+					//pega estado inicial
+					estado = get_string_ref(estados, estado_inicial);
+					// se o estado anterior foi um estado final
+					if (get_string_ref(estados_finais, estados[estado_anterior]) != -1){
+						//se a palavra não é vazia adiciona palavra reconhecida
+						if (!palavra.equals("")){
+							palavras_reconhecidas.add(palavra);
+						}
+						// se ao analisar este caracter não houve transição
+						// teste-o novamente, considerando que o estado seja inicial
+						j--;
+					}
+					//zera palavra
+					palavra = "";
+				}else{
+					//se houver transição válida, adiciona caracter a palavra
+					palavra += codigoHTML.charAt(j);
+				}
+			}
+
+			//foreach no Java para exibir todas as palavras reconhecidas
+			for (String p : palavras_reconhecidas){
+				System.out.println(p);
+			}
+			System.out.println();
+		}
+	}
 }
