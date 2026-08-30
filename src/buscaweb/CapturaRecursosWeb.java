@@ -1,40 +1,36 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package buscaweb;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.Inet4Address;
-import java.net.InetAddress;
+// import java.net.Inet4Address;
+// import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.Socket;
+// import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.UnknownHostException;
+import java.net.URI;
+import java.net.URISyntaxException;
+// import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SocketHandler;
+// import java.util.logging.Level;
+// import java.util.logging.Logger;
+// import java.util.logging.SocketHandler;
 
 /**
- *
  * @author Santiago
  */
 public class CapturaRecursosWeb {
-    private ArrayList<String> listaRecursos = new ArrayList();
-    
+    private ArrayList<String> listaRecursos = new ArrayList<String>();
 
     public ArrayList<String> carregarRecursos(){
-        ArrayList<String> resultado = new ArrayList();
+        ArrayList<String> resultado = new ArrayList<String>();
         for (String stringURL: listaRecursos){
             String resposta = "";
 
             try {
-                URL url = new URL(stringURL);
+                URI uri = new URI(stringURL);
+				URL url = uri.toURL();
                 URLConnection connection = url.openConnection();
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(
@@ -51,7 +47,9 @@ public class CapturaRecursosWeb {
                 ex.printStackTrace();
             } catch (IOException ex) {
                 ex.printStackTrace();
-            }
+            } catch (URISyntaxException ex){
+				ex.printStackTrace();
+			}
         }
         return resultado;
     }
