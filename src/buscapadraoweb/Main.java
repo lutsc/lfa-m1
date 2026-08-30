@@ -48,6 +48,15 @@ public class Main {
         }
     }
 
+	public static void liga_separador(int[][] matriz, char[] alfabeto, int estado_origem, int estado_destino){
+        char[] alfabeto_separador = {
+			':', '-', '.'
+		};
+        for (char h : alfabeto_separador){
+            matriz[estado_origem][get_char_ref(alfabeto, h)] = estado_destino;
+        }
+    }
+
     public static void main(String[] args) {
         //instancia e usa objeto que captura código-fonte de páginas Web
         CapturaRecursosWeb crw = new CapturaRecursosWeb();
@@ -61,7 +70,7 @@ public class Main {
 
         //mapa do alfabeto
         char[] alfabeto = {
-			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'a', 'b', 'c', 'd', 'e', 'f', ':'
+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'a', 'b', 'c', 'd', 'e', 'f', ':', '-', '.'
 		};
 
         //mapa de estados
@@ -88,35 +97,35 @@ public class Main {
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q1"), get_string_ref(estados, "q2"));
 
 		// q2 -:-> q3
-		matriz[get_string_ref(estados, "q2")][get_char_ref(alfabeto, ':')] = get_string_ref(estados, "q3");
+		liga_separador(matriz, alfabeto, get_string_ref(estados, "q2"), get_string_ref(estados, "q3"));
 
 		// q3 -hex-> q4 -hex-> q5
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q3"), get_string_ref(estados, "q4"));
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q4"), get_string_ref(estados, "q5"));
 
 		// q5 -:-> q6
-		matriz[get_string_ref(estados, "q5")][get_char_ref(alfabeto, ':')] = get_string_ref(estados, "q6");
+		liga_separador(matriz, alfabeto, get_string_ref(estados, "q5"), get_string_ref(estados, "q6"));
 
 		// q6 -hex-> q7 -hex-> q8
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q6"), get_string_ref(estados, "q7"));
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q7"), get_string_ref(estados, "q8"));
 
 		// q8 -:-> q9
-		matriz[get_string_ref(estados, "q8")][get_char_ref(alfabeto, ':')] = get_string_ref(estados, "q9");
+		liga_separador(matriz, alfabeto, get_string_ref(estados, "q8"), get_string_ref(estados, "q9"));
 
 		// q9 -hex-> q10 -hex-> q11
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q9"), get_string_ref(estados, "q10"));
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q10"), get_string_ref(estados, "q11"));
 
 		// q11 -:-> q12
-		matriz[get_string_ref(estados, "q11")][get_char_ref(alfabeto, ':')] = get_string_ref(estados, "q12");
+		liga_separador(matriz, alfabeto, get_string_ref(estados, "q11"), get_string_ref(estados, "q12"));
 
 		// q12 -hex-> q13 -hex-> q14
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q12"), get_string_ref(estados, "q13"));
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q13"), get_string_ref(estados, "q14"));
 
 		// q14 -:-> q15
-		matriz[get_string_ref(estados, "q14")][get_char_ref(alfabeto, ':')] = get_string_ref(estados, "q15");
+		liga_separador(matriz, alfabeto, get_string_ref(estados, "q14"), get_string_ref(estados, "q15"));
 
 		// q15 -hex-> q16 -hex-> q17
 		liga_hex(matriz, alfabeto, get_string_ref(estados, "q15"), get_string_ref(estados, "q16"));
