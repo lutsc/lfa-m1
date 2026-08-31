@@ -178,7 +178,7 @@ public class Main {
 
 		for(int i=0; i<estados.length; i++){
 			for(int j=0; j<alfabeto.length; j++){
-				System.out.print(matriz[i][j] + " ");
+				System.out.printf("%2d ", matriz[i][j]);
 			}	
 			System.out.println();
 		}
