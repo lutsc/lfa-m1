@@ -175,5 +175,13 @@ public class Main {
 			}
 			System.out.println();
 		}
+
+		for(int i=0; i<estados.length; i++){
+			for(int j=0; j<alfabeto.length; j++){
+				System.out.print(matriz[i][j] + " ");
+			}	
+			System.out.println();
+		}
+
 	}
 }
