@@ -176,6 +176,15 @@ public class Main {
 			System.out.println();
 		}
 
+    for(int i=0; i<alfabeto.length; i++){
+      System.out.printf("%2c ", alfabeto[i]);
+    }	
+		System.out.println();
+    for(int i=0; i<alfabeto.length; i++){
+      System.out.printf("---");
+    }	
+		System.out.println();
+
 		for(int i=0; i<estados.length; i++){
 			for(int j=0; j<alfabeto.length; j++){
 				System.out.printf("%2d ", matriz[i][j]);
